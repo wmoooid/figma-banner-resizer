@@ -22,13 +22,14 @@ let lastFrame = initialFrame;
 
 RESIZE_LIST.forEach((size) => {
     const newFrame = initialFrame.clone();
+    const smallestSide = size[0] >= size[1] ? size[1] : size[0];
 
     newFrame.x = lastFrame.x + lastFrame.width + 150;
+    newFrame.rescale(smallestSide / initialFrame.width);
     newFrame.resize(size[0], size[1]);
 
     newFrame.name = size.join('x');
 
-    const smallestSide = newFrame.width >= newFrame.height ? newFrame.height : newFrame.width;
     const guideOffsetNear = smallestSide * GUIDES_FACTOR;
     const guideOffsetFarX = newFrame.width - guideOffsetNear;
     const guideOffsetFarY = newFrame.height - guideOffsetNear;
